@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="hi">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>PROJECT HANDLING PLATEFORM</title>
+
+<link rel="stylesheet"
+href="style.css">
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+ LOGIN PAGE
+===================================================== -->
+
+<div id="loginPage" class="login-page">
+
+    <div class="login-card">
+
+        <div class="logo">
+            📊
+        </div>
+
+        <h1>PROJECT HANDLING</h1>
+
+        <p class="subtitle">
+            PLATEFORM
+        </p>
+
+
+        <div class="login-types">
+
+            <button
+            class="login-type active"
+            onclick="selectLogin('project',this)">
+                📁 Project Login
+            </button>
+
+            <button
+            class="login-type"
+            onclick="selectLogin('upp',this)">
+                🏢 UPP Login
+            </button>
+
+            <button
+            class="login-type"
+            onclick="selectLogin('family',this)">
+                👨‍👩‍👧 Family Branch
+            </button>
+
+            <button
+            class="login-type"
+            onclick="selectLogin('important',this)">
+                🔗 Important Links
+            </button>
+
+        </div>
+
+
+        <form onsubmit="login(event)">
+
+            <input
+            type="text"
+            id="username"
+            placeholder="Username"
+            required>
+
+
+            <input
+            type="password"
+            id="password"
+            placeholder="Password"
+            required>
+
+
+            <button
+            type="submit"
+            class="login-btn">
+
+                🔐 LOGIN
+
+            </button>
+
+        </form>
+
+
+        <div id="loginMessage"
+             class="message">
+        </div>
+
+        <p class="footer-login">
+            Secure Project Management System
+        </p>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+ MAIN APPLICATION
+===================================================== -->
+
+<div id="app" class="app hidden">
+
+
+<!-- HEADER -->
+
+<header class="top-header">
+
+    <div class="brand">
+
+        <div class="brand-icon">
+            📊
+        </div>
+
+        <div>
+
+            <h2>
+                PROJECT HANDLING PLATEFORM
+            </h2>
+
+            <span id="userRole">
+                Dashboard
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="header-right">
+
+        <span id="welcomeUser">
+            Welcome
+        </span>
+
+        <button
+        onclick="logout()"
+        class="logout-btn">
+
+            🚪 Logout
+
+        </button>
+
+    </div>
+
+</header>
+
+
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+    <button
+    onclick="showPage('dashboard')"
+    class="menu active"
+    data-page="dashboard">
+
+        🏠 Dashboard
+
+    </button>
+
+
+    <button
+    onclick="showPage('projects')"
+    class="menu"
+    data-page="projects">
+
+        📁 Projects
+
+    </button>
+
+
+    <button
+    onclick="showPage('records')"
+    class="menu"
+    data-page="records">
+
+        📝 Project Records
+
+    </button>
+
+
+    <button
+    onclick="showPage('links')"
+    class="menu"
+    data-page="links">
+
+        🔗 Important Links
+
+    </button>
+
+
+    <button
+    onclick="showPage('documents')"
+    class="menu"
+    data-page="documents">
+
+        📄 Documents
+
+    </button>
+
+
+    <button
+    onclick="showPage('reports')"
+    class="menu"
+    data-page="reports">
+
+        📊 Reports
+
+    </button>
+
+</aside>
+
+
+
+<!-- CONTENT -->
+
+<main class="main-content">
+
+
+<!-- =====================================================
+ DASHBOARD
+===================================================== -->
+
+<section
+id="dashboard"
+class="page">
+
+    <div class="page-title">
+
+        <div>
+
+            <h1>
+                Dashboard
+            </h1>
+
+            <p>
+                PROJECT HANDLING PLATEFORM overview
+            </p>
+
+        </div>
+
+        <button
+        onclick="loadDashboard()"
+        class="refresh-btn">
+
+            🔄 Refresh
+
+        </button>
+
+    </div>
+
+
+    <div class="stats-grid">
+
+
+        <div class="stat-card blue">
+
+            <div class="stat-icon">
+                📁
+            </div>
+
+            <div>
+
+                <h3 id="totalProjects">
+                    0
+                </h3>
+
+                <p>
+                    Total Projects
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card green">
+
+            <div class="stat-icon">
+                📝
+            </div>
+
+            <div>
+
+                <h3 id="totalRecords">
+                    0
+                </h3>
+
+                <p>
+                    Project Records
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card orange">
+
+            <div class="stat-icon">
+                🔗
+            </div>
+
+            <div>
+
+                <h3 id="totalLinks">
+                    0
+                </h3>
+
+                <p>
+                    Important Links
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card purple">
+
+            <div class="stat-icon">
+                📄
+            </div>
+
+            <div>
+
+                <h3 id="totalDocuments">
+                    0
+                </h3>
+
+                <p>
+                    Documents
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="quick-grid">
+
+        <button onclick="showPage('projects')">
+            ➕ Add Project
+        </button>
+
+        <button onclick="showPage('records')">
+            📝 Add Record
+        </button>
+
+        <button onclick="showPage('links')">
+            🔗 Add Link
+        </button>
+
+        <button onclick="showPage('documents')">
+            📄 Add Document
+        </button>
+
+    </div>
+
+
+    <div class="welcome-box">
+
+        <h2>
+            Welcome to Project Handling Plateform
+        </h2>
+
+        <p>
+            इस platform से आप Projects, UPP records,
+            Family Branch records, Important Links और
+            Documents को manage कर सकते हैं।
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+ PROJECTS
+===================================================== -->
+
+<section
+id="projects"
+class="page hidden">
+
+    <div class="page-title">
+
+        <div>
+
+            <h1>
+                📁 Projects
+            </h1>
+
+            <p>
+                Project management
+            </p>
+
+        </div>
+
+        <button
+        onclick="openModal('projectModal')"
+        class="primary-btn">
+
+            ➕ New Project
+
+        </button>
+
+    </div>
+
+
+    <input
+    class="search"
+    id="projectSearch"
+    oninput="filterProjects()"
+    placeholder="🔎 Search project...">
+
+
+    <div
+    id="projectList"
+    class="data-grid">
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+ RECORDS
+===================================================== -->
+
+<section
+id="records"
+class="page hidden">
+
+    <div class="page-title">
+
+        <div>
+
+            <h1>
+                📝 Project Records
+            </h1>
+
+            <p>
+                Daily / date-wise project records
+            </p>
+
+        </div>
+
+        <button
+        onclick="openRecordModal()"
+        class="primary-btn">
+
+            ➕ Add Record
+
+        </button>
+
+    </div>
+
+
+    <input
+    class="search"
+    id="recordSearch"
+    oninput="filterRecords()"
+    placeholder="🔎 Search records...">
+
+
+    <div
+    id="recordList"
+    class="data-grid">
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+ LINKS
+===================================================== -->
+
+<section
+id="links"
+class="page hidden">
+
+    <div class="page-title">
+
+        <div>
+
+            <h1>
+                🔗 Important Links
+            </h1>
+
+            <p>
+                Important websites and online resources
+            </p>
+
+        </div>
+
+        <button
+        onclick="openModal('linkModal')"
+        class="primary-btn">
+
+            ➕ Add Link
+
+        </button>
+
+    </div>
+
+
+    <input
+    class="search"
+    id="linkSearch"
+    oninput="filterLinks()"
+    placeholder="🔎 Search links...">
+
+
+    <div
+    id="linkList"
+    class="link-grid">
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+ DOCUMENTS
+===================================================== -->
+
+<section
+id="documents"
+class="page hidden">
+
+    <div class="page-title">
+
+        <div>
+
+            <h1>
+                📄 Documents
+            </h1>
+
+            <p>
+                Google Docs / Drive documents
+            </p>
+
+        </div>
+
+        <button
+        onclick="openModal('documentModal')"
+        class="primary-btn">
+
+            ➕ Add Document
+
+        </button>
+
+    </div>
+
+
+    <input
+    class="search"
+    id="documentSearch"
+    oninput="filterDocuments()"
+    placeholder="🔎 Search documents...">
+
+
+    <div
+    id="documentList"
+    class="link-grid">
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+ REPORTS
+===================================================== -->
+
+<section
+id="reports"
+class="page hidden">
+
+    <div class="page-title">
+
+        <div>
+
+            <h1>
+                📊 Reports
+            </h1>
+
+            <p>
+                Project statistics and reports
+            </p>
+
+        </div>
+
+        <button
+        onclick="window.print()"
+        class="primary-btn">
+
+            🖨 Print Report
+
+        </button>
+
+    </div>
+
+
+    <div class="report-box">
+
+        <h2>
+            System Report
+        </h2>
+
+        <div id="reportContent">
+        </div>
+
+    </div>
+
+</section>
+
+
+</main>
+
+</div>
+
+
+
+<!-- =====================================================
+ PROJECT MODAL
+===================================================== -->
+
+<div
+id="projectModal"
+class="modal">
+
+    <div class="modal-card">
+
+        <button
+        class="close"
+        onclick="closeModal('projectModal')">
+
+            ×
+
+        </button>
+
+        <h2>
+            ➕ Add New Project
+        </h2>
+
+
+        <form onsubmit="saveProject(event)">
+
+            <input
+            id="projectName"
+            placeholder="Project Name"
+            required>
+
+
+            <input
+            id="department"
+            placeholder="Department / Branch">
+
+
+            <select id="projectStatus">
+
+                <option>
+                    Pending
+                </option>
+
+                <option>
+                    Running
+                </option>
+
+                <option>
+                    Completed
+                </option>
+
+                <option>
+                    Hold
+                </option>
+
+            </select>
+
+
+            <label>
+                Start Date
+            </label>
+
+            <input
+            type="date"
+            id="startDate">
+
+
+            <label>
+                End Date
+            </label>
+
+            <input
+            type="date"
+            id="endDate">
+
+
+            <textarea
+            id="projectDescription"
+            placeholder="Project Description">
+            </textarea>
+
+
+            <button class="primary-btn">
+                💾 Save Project
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+ RECORD MODAL
+===================================================== -->
+
+<div
+id="recordModal"
+class="modal">
+
+    <div class="modal-card">
+
+        <button
+        class="close"
+        onclick="closeModal('recordModal')">
+
+            ×
+
+        </button>
+
+        <h2>
+            📝 Add Project Record
+        </h2>
+
+
+        <form onsubmit="saveRecord(event)">
+
+            <select
+            id="recordProject"
+            required>
+
+                <option value="">
+                    Select Project
+                </option>
+
+            </select>
+
+
+            <input
+            type="date"
+            id="recordDate"
+            required>
+
+
+            <input
+            id="recordTitle"
+            placeholder="Record Title"
+            required>
+
+
+            <textarea
+            id="recordDetails"
+            placeholder="Details">
+            </textarea>
+
+
+            <input
+            id="recordPerson"
+            placeholder="Responsible Person">
+
+
+            <select id="recordStatus">
+
+                <option>
+                    Pending
+                </option>
+
+                <option>
+                    Running
+                </option>
+
+                <option>
+                    Completed
+                </option>
+
+                <option>
+                    Hold
+                </option>
+
+            </select>
+
+
+            <button class="primary-btn">
+                💾 Save Record
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+ LINK MODAL
+===================================================== -->
+
+<div
+id="linkModal"
+class="modal">
+
+    <div class="modal-card">
+
+        <button
+        class="close"
+        onclick="closeModal('linkModal')">
+
+            ×
+
+        </button>
+
+        <h2>
+            🔗 Add Important Link
+        </h2>
+
+
+        <form onsubmit="saveLink(event)">
+
+            <input
+            id="linkTitle"
+            placeholder="Link Title"
+            required>
+
+
+            <input
+            id="linkCategory"
+            placeholder="Category">
+
+
+            <input
+            type="url"
+            id="linkUrl"
+            placeholder="https://example.com"
+            required>
+
+
+            <textarea
+            id="linkDescription"
+            placeholder="Description">
+            </textarea>
+
+
+            <button class="primary-btn">
+                💾 Save Link
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+ DOCUMENT MODAL
+===================================================== -->
+
+<div
+id="documentModal"
+class="modal">
+
+    <div class="modal-card">
+
+        <button
+        class="close"
+        onclick="closeModal('documentModal')">
+
+            ×
+
+        </button>
+
+        <h2>
+            📄 Add Document
+        </h2>
+
+
+        <form onsubmit="saveDocument(event)">
+
+            <input
+            id="documentTitle"
+            placeholder="Document Title"
+            required>
+
+
+            <input
+            id="documentCategory"
+            placeholder="Category">
+
+
+            <input
+            type="url"
+            id="documentUrl"
+            placeholder="Google Docs / Drive URL"
+            required>
+
+
+            <textarea
+            id="documentDescription"
+            placeholder="Description">
+            </textarea>
+
+
+            <button class="primary-btn">
+                💾 Save Document
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+
+<div id="toast"
+class="toast">
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
